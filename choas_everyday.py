@@ -38,10 +38,11 @@ def read_previous_subdomains():
             return set(f.read().splitlines())
     return set()
 
-def save_subdomains(subdomains):
-    with open(subdomains_file, 'a') as f:
-        for subdomain in subdomains:
-            f.write(subdomain + "\n")
+def save_new_subdomains(new_subdomains):
+    if new_subdomains:
+        with open(subdomains_file, 'a') as f:
+            for subdomain in new_subdomains:
+                f.write(subdomain + "\n")
 
 def main():
     # Download the file
@@ -49,7 +50,7 @@ def main():
     # Extract the file
     extract_zip()
     
-    # Extract new subdomains
+    # Extract current subdomains
     current_subdomains = extract_all_subdomains()
     
     # Read previous subdomains
@@ -67,7 +68,7 @@ def main():
         print("\033[92mNo new subdomains found.\033[0m")  # Green color
 
     # Save new subdomains to the file
-    save_subdomains(current_subdomains)
+    save_new_subdomains(new_subdomains)
 
     # Display created by message
     print("\033[93mCreate By alimostafaeiorg\033[0m")  # Yellow color
